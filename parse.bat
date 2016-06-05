@@ -1,5 +1,4 @@
 @echo off
-::small size 500px photo links parser and downloader
 ::settings
 setlocal EnableDelayedExpansion
 
