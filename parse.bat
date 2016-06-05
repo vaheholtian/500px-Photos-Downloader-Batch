@@ -1,25 +1,23 @@
 @echo off
 ::small size 500px photo links parser and downloader
 ::settings
-setlocal ENABLEDELAYEDEXPANSION
+setlocal EnableDelayedExpansion
 
-::download src files from Links.txt
-set vidz=0
+::cleaning up links
 for /F "tokens=*" %%A in (Links.txt) do (
-    SET /A vidz=!vidz! + 1
-	wget -O "%vidz%" "%%A"
-	grep -ao ":2048.*store_d" "%vidz%">%vidz%a
-	grep -ao "http.*https_" "%vidz%a">%vidz%b
-	grep -ao "http.*," "%vidz%b">%vidz%c
-	bin\sed -f replace.sed "%vidz%c">%vidz%d
-	bin\sed -f cleanup.sed "%vidz%d">>parselinks.txt
-	rm %vidz%*
+   SET /A vidz=!vidz! + 1
+   title processing link !vidz! 
+   bin\wget -qO "!vidz!a.txt" "https://500px.com/oembed?url=%%A&format=json"
+   bin\grep -ao "https:\/\/d.[a-z0-9].*,.w" "!vidz!a.txt">!vidz!b.txt
+   bin\sed -f cleanup.sed !vidz!b.txt>>parselinks.txt
+   rm !vidz!*
 )
+::bin\rm 1 a b
 ::download data from links
+title downloading photos
 for /F "tokens=*" %%i in (parselinks.txt) do (
-    SET /A vidy=!vidy! + 1
 	cd export
-    wget "%%i"
+    wget -q "%%i"
 	cd ..
 )
 cd export
@@ -28,4 +26,5 @@ FOR /F %%i in ('dir /b/s/A-d') DO (
 )
 cd ..
 rm parselinks.*
-copy NUL Links.txt
+title done
+::copy NUL Links.txt

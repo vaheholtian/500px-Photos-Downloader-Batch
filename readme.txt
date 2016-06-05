@@ -1,1 +1,0 @@
-A wget, sed, batch based batch script to download embed-sized photos from 500px from links specified in Links.txt
