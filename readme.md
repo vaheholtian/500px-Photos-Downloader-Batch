@@ -4,4 +4,10 @@ a windows batch script utilizing multiple gnu utilies to download embed-sized 50
 
 **Disclaimer**
 -----
-This script is published with informational usage purposes only. 
+This script is published with informational usage purposes only. All photo copyrights belongs to their respective owners.
+
+
+**Usage**
+-----
+1. copy link from any photo from 500px website
+2. double click on parse.bat
