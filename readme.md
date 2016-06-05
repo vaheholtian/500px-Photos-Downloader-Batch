@@ -9,5 +9,6 @@ This script is published with informational usage purposes only. All photo copyr
 
 **Usage**
 -----
-1. copy link from any photo from 500px website
+1. copy link from any photo from 500px website to Links.txt
 2. double click on parse.bat
+3. the script will download the photos from Links.txt to the "export" folder
