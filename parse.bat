@@ -1,12 +1,13 @@
 @echo off
-::settings
 setlocal EnableDelayedExpansion
 IF NOT EXIST export mkdir export
-::cleaning up links #1
+
+
 for /F "tokens=*" %%A in (Links.txt) do (
    echo %%A | bin\grep -ao ".*\/.*[0-9]\/">>links.tmp
 )
-::cleaning up links #2
+
+
 for /F "tokens=*" %%B in (links.tmp) do (
    SET /A vidz=!vidz! + 1
    echo processing link !vidz! 
@@ -15,16 +16,19 @@ for /F "tokens=*" %%B in (links.tmp) do (
    bin\rm !vidz!*
    cls
 )
-::download data from links
+
+
 for /F "tokens=*" %%c in (parselinks.txt) do (
     echo downloading photo %%c
 	wget -q "%%c"
 	cls
 )
+
+
 FOR /F %%i in ('dir /b/s/A-d') DO (
   if "%%~xi" == "" rename "%%~fi" "%%~ni.jpg"
 )
 bin\cp *.jpg export\
 bin\rm parselinks.* links.tmp *.jpg
-title done
-::copy NUL Links.txt
+echo done.
+copy NUL Links.txt

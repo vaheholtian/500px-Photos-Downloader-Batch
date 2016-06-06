@@ -2,6 +2,9 @@
 -----
 a windows batch script utilizing multiple gnu utilies to download embed-sized 500px photos from links specified in Links.txt
 
+**Notes**
+-----
+I have created this little script in order to learn more about regular expressions, scripting, analyzing sources and other things.
 
 **Disclaimer**
 -----
