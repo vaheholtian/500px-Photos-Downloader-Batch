@@ -1,7 +1,7 @@
 @echo off
 ::settings
 setlocal EnableDelayedExpansion
-mkdir export
+IF NOT EXIST export mkdir export
 ::cleaning up links #1
 for /F "tokens=*" %%A in (Links.txt) do (
    echo %%A | bin\grep -ao ".*\/.*[0-9]\/">>links.tmp
@@ -9,15 +9,17 @@ for /F "tokens=*" %%A in (Links.txt) do (
 ::cleaning up links #2
 for /F "tokens=*" %%B in (links.tmp) do (
    SET /A vidz=!vidz! + 1
-   title processing link !vidz! 
+   echo processing link !vidz! 
    bin\wget -qO "!vidz!a.txt" "https://500px.com/oembed?url=%%B&format=json"
    bin\grep -ao "https:\/\/d.[a-z0-9].*,.w" "!vidz!a.txt" | bin\sed -f cleanup.sed>>parselinks.txt
    bin\rm !vidz!*
+   cls
 )
 ::download data from links
 for /F "tokens=*" %%c in (parselinks.txt) do (
-    title downloading photo %%c
+    echo downloading photo %%c
 	wget -q "%%c"
+	cls
 )
 FOR /F %%i in ('dir /b/s/A-d') DO (
   if "%%~xi" == "" rename "%%~fi" "%%~ni.jpg"
